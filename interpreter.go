@@ -316,7 +316,7 @@ func (intr *treeInterpreter) Execute(node ASTNode, value interface{}) (interface
 
 func fieldFromStruct(value reflect.Value, fieldName string) interface{} {
 	v := value.FieldByName(fieldName)
-	if !v.IsValid() {
+	if !v.IsValid() || (v.Kind() == reflect.Ptr && v.IsNil()) {
 		return nil
 	}
 
